@@ -104,3 +104,24 @@ export const ListTask = styled.div`
 
   }
 `
+
+export const ListTaskWithTasks = styled.div`
+
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-bottom: 12px;
+  background-color: var(--gray-500);
+
+
+  strong {
+    width: 632px;
+    max-width: 632px;
+    color: var(--gray-100);
+    font-weight: 400;
+  }
+
+`
