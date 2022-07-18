@@ -1,15 +1,23 @@
 import styled from "styled-components";
 
 
+export const Container = styled.div`
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+`
+
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: row;
   gap: 8px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 3.375rem;
+  
+  height:auto;
   margin-top: calc(0px - 1.3rem - 6px);
+  padding-bottom: 66px;
 `
 
 
@@ -35,4 +43,64 @@ export const Button = styled.button`
   border-radius: 8px;
   color: var(--gray-100);
   
+`
+
+export const ContainerTask = styled.div`
+
+
+`
+
+export const ContainerListTask = styled.div`
+  width: 46rem;
+  padding: 16px 0;
+
+`
+
+export const TaskInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  
+
+  .task-created{
+    color: var(--blue);
+  }
+
+  .task-concluded{
+    color: var(--purple);
+  }
+
+  strong {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+  }
+  strong > div {
+    background-color: var(--gray-400);
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+`
+
+
+export const ListTask = styled.div`
+  border-top: 2px solid var(--gray-400);
+  padding: 64px 6px 6px 6px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+
+  .text-bold {
+    font-weight: 700;
+  }
+  
+  p {
+    color: var(--gray-300);
+    font-weight: 400;
+
+  }
 `
