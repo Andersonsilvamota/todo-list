@@ -1,10 +1,11 @@
 import './global.css'
+import { Header } from './Header'
 
 function App() {
 
   return (
     <div className="App">
-      <p>hello world</p>
+      <Header />
     </div>
   )
 }
