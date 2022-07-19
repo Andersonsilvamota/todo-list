@@ -44,6 +44,10 @@ export const Button = styled.button`
   border-radius: 8px;
   color: var(--gray-100);
   cursor: pointer;
+
+  &:hover {
+    background-color: var(--blue);
+  }
   
 `
 
@@ -124,6 +128,11 @@ export const ListTaskWithTasks = styled.div`
     max-width: 632px;
     color: var(--gray-100);
     font-weight: 400;
+  }
+
+   .check:checked + strong{
+    text-decoration: line-through;
+    color: var(--gray-300);
   }
 
 `

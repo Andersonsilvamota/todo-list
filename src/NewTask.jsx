@@ -14,13 +14,14 @@ export function NewTask(){
   }
 
   function handleCreateNewTask(){
-    setTasks([...tasks, 
-      {
+    const taskNew = {
       'id': uuidv4(),
       'title': newTask,
       'isComplete': false
-      }
-    ])
+    }
+
+    setTasks([...tasks, taskNew])
+    setNewTask('')
   }
 
   function handleDeleteTask(id){
@@ -28,14 +29,26 @@ export function NewTask(){
     setTasks(newTasks)
   }
 
+  function handleCompleteTask(id){
+    //console.log(task)
+
+    const taskCompleted = tasks.map(task => task.id === id ? {
+      ...task,
+      isComplete: !task.isComplete
+    } : task )
+    console.log(taskCompleted)
+    setTasks(taskCompleted)
+  }
+
   return(
+    
     <Container>
       <ContainerInput>
         <NewTaskInput 
           type="text" 
           placeholder="Adicione uma nova tarefa" 
-          onChange={handleAddNewTask}
-           
+          onChange={(e) => setNewTask(e.target.value)} 
+          value={newTask}
         />
           
         <Button 
@@ -50,7 +63,7 @@ export function NewTask(){
       </ContainerInput>
       <ContainerTask>
         <TaskInfo>
-          <strong className="task-created">Tarefas criadas <div>0</div></strong>
+          <strong className="task-created">Tarefas criadas <div>{tasks.length}</div></strong>
           <strong className="task-concluded">Concluídas <div>0</div></strong>
         </TaskInfo>
         <ContainerListTask>
@@ -58,7 +71,7 @@ export function NewTask(){
               tasks.map(task => {
                 return (
                   <ListTaskWithTasks key={task.id}>
-                    <input type="checkbox"/>
+                    <input className="check" checked={task.isComplete} type="checkbox" onClick={() => handleCompleteTask(task.id)}/>
                     <strong>{task.title}</strong>
                     <ButtonDelete>
                       <Trash onClick={() => handleDeleteTask(task.id)} size={24}  />
