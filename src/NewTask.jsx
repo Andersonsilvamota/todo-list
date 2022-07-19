@@ -1,6 +1,8 @@
 import React, {useState} from "react";
-import { Button, Container, ContainerInput, ContainerListTask, ContainerTask, ListTask, NewTaskInput, TaskInfo, ListTaskWithTasks } from "./styleNewTask";
+import { Button, Container, ContainerInput, ContainerListTask, ContainerTask, ListTask, NewTaskInput, TaskInfo, ListTaskWithTasks, ButtonDelete } from "./styleNewTask";
 import {PlusCircle, ClipboardText, Trash } from 'phosphor-react'
+import { v4 as uuidv4 } from 'uuid';
+
 
 export function NewTask(){
   const [newTask, setNewTask] = useState('')
@@ -9,11 +11,21 @@ export function NewTask(){
   function handleAddNewTask(event){
     event.preventDefault()
     setNewTask(event.target.value)
-    console.log(event.target.value)
   }
 
   function handleCreateNewTask(){
-    setTasks([...tasks, newTask])
+    setTasks([...tasks, 
+      {
+      'id': uuidv4(),
+      'title': newTask,
+      'isComplete': false
+      }
+    ])
+  }
+
+  function handleDeleteTask(id){
+    let newTasks = tasks.filter(task => task.id !== id)
+    setTasks(newTasks)
   }
 
   return(
@@ -42,13 +54,15 @@ export function NewTask(){
           <strong className="task-concluded">Concluídas <div>0</div></strong>
         </TaskInfo>
         <ContainerListTask>
-            {tasks.lenght !== 0 ? (
+            {tasks.length > 0 ? (
               tasks.map(task => {
                 return (
-                  <ListTaskWithTasks>
+                  <ListTaskWithTasks key={task.id}>
                     <input type="checkbox"/>
-                    <strong>{task}</strong>
-                    <Trash size={24} color='var(--gray-300)' />
+                    <strong>{task.title}</strong>
+                    <ButtonDelete>
+                      <Trash onClick={() => handleDeleteTask(task.id)} size={24}  />
+                    </ButtonDelete>
                   </ListTaskWithTasks>
                 )
               })

@@ -28,6 +28,7 @@ export const NewTaskInput = styled.input`
   height: 3.375rem;
   border-radius: 8px;
   padding: 20px;
+  color: var(--gray-200);
 
 `
     
@@ -42,6 +43,7 @@ export const Button = styled.button`
   gap: 8px;
   border-radius: 8px;
   color: var(--gray-100);
+  cursor: pointer;
   
 `
 
@@ -124,4 +126,16 @@ export const ListTaskWithTasks = styled.div`
     font-weight: 400;
   }
 
+`
+
+export const ButtonDelete = styled.button`
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--gray-300);
+
+  &:hover {
+    color: var(--danger);
+    background-color: var(--gray-400);
+    cursor: pointer;
+  }
 `
