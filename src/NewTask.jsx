@@ -8,13 +8,15 @@ export function NewTask(){
   const [newTask, setNewTask] = useState('')
   const [tasks, setTasks] = useState([])
   const [count, setCount] = useState(0)
-
+  let quantityCompleted = 0
   function handleAddNewTask(event){
     event.preventDefault()
     setNewTask(event.target.value)
   }
 
   function handleCreateNewTask(){
+    if(!newTask) return
+    
     const taskNew = {
       'id': uuidv4(),
       'title': newTask,
@@ -37,14 +39,11 @@ export function NewTask(){
       ...task,
       isComplete: !task.isComplete
     } : task )
-    console.log(taskCompleted)
 
     setTasks(taskCompleted)
   }
 
-  
   return(
-    
     <Container>
       <ContainerInput>
         <NewTaskInput 
@@ -53,7 +52,6 @@ export function NewTask(){
           onChange={(e) => setNewTask(e.target.value)} 
           value={newTask}
         />
-          
         <Button 
           type='submit'
           onClick={handleCreateNewTask}
@@ -61,20 +59,37 @@ export function NewTask(){
           Criar
           <PlusCircle size={30}/>
         </Button>
-
-        
       </ContainerInput>
       <ContainerTask>
         <TaskInfo>
-          <strong className="task-created">Tarefas criadas <div>{tasks.length}</div></strong>
-          <strong className="task-concluded">Concluídas <div>{count} de {tasks.length}</div></strong>
+        {tasks.forEach(task => {
+            if(task.isComplete === true){
+              quantityCompleted++
+            }
+          })}
+          <strong 
+            className="task-created"
+          >
+            Tarefas criadas 
+            <div>{tasks.length}</div>
+          </strong>
+          <strong 
+            className="task-concluded"
+          >
+            Concluídas 
+            <div>{quantityCompleted} de {tasks.length}</div>
+          </strong>
+          
         </TaskInfo>
         <ContainerListTask>
           <ul>
           {tasks.length > 0 ? (
             tasks.map(task => {
                 return (
-                  <ListTaskWithTasks className={task.isComplete ? 'completed' : ''} key={task.id}>
+                  <ListTaskWithTasks 
+                    className={task.isComplete ? 'completed' : ''} 
+                    key={task.id}
+                  >
                     <label className="checkbox-container">
                       <input 
                         readOnly 
@@ -87,37 +102,25 @@ export function NewTask(){
                     </label>
                     <strong>{task.title}</strong>
                     <ButtonDelete>
-                      <Trash onClick={() => handleDeleteTask(task.id)} size={24}  />
+                      <Trash 
+                        onClick={() => handleDeleteTask(task.id)} 
+                        size={24}  
+                      />
                     </ButtonDelete>
                   </ListTaskWithTasks>
                 )
               })
-          ) : ''}
+          ) : (
+              <ListTask>
+                <ClipboardText 
+                  size={80} 
+                  color='var(--gray-400)' 
+                  weight="light"/>
+                <p className="text-bold">Você ainda não tem tarefas cadastradas</p>
+                <p>Crie tarefas e organize itens a fazer</p>
+              </ListTask> 
+            )}
           </ul>
-            {/* {tasks.length > 0 ? (
-              tasks.map(task => {
-                return (
-                  <ListTaskWithTasks key={task.id}>
-                    <input readOnly className="check" checked={task.isComplete} type="checkbox" onClick={() => handleCompleteTask(task.id)}/>
-                    <span className="checkmark"></span>
-                    <strong>{task.title}</strong>
-                    <ButtonDelete>
-                      <Trash onClick={() => handleDeleteTask(task.id)} size={24}  />
-                    </ButtonDelete>
-                  </ListTaskWithTasks>
-                )
-              })
-            ) : (
-                
-                <ListTask>
-                  <ClipboardText size={80} color='var(--gray-400)' weight="light"/>
-                  <p className="text-bold">Você ainda não tem tarefas cadastradas</p>
-                  <p>Crie tarefas e organize itens a fazer</p>
-                </ListTask>
-                  
-            )
-          } */}
-
         </ContainerListTask>
     </ContainerTask>
   </Container>
