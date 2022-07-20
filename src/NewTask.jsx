@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 export function NewTask(){
   const [newTask, setNewTask] = useState('')
   const [tasks, setTasks] = useState([])
+  const [count, setCount] = useState(0)
 
   function handleAddNewTask(event){
     event.preventDefault()
@@ -37,9 +38,11 @@ export function NewTask(){
       isComplete: !task.isComplete
     } : task )
     console.log(taskCompleted)
+
     setTasks(taskCompleted)
   }
 
+  
   return(
     
     <Container>
@@ -64,14 +67,39 @@ export function NewTask(){
       <ContainerTask>
         <TaskInfo>
           <strong className="task-created">Tarefas criadas <div>{tasks.length}</div></strong>
-          <strong className="task-concluded">Concluídas <div>0</div></strong>
+          <strong className="task-concluded">Concluídas <div>{count} de {tasks.length}</div></strong>
         </TaskInfo>
         <ContainerListTask>
-            {tasks.length > 0 ? (
+          <ul>
+          {tasks.length > 0 ? (
+            tasks.map(task => {
+                return (
+                  <ListTaskWithTasks className={task.isComplete ? 'completed' : ''} key={task.id}>
+                    <label className="checkbox-container">
+                      <input 
+                        readOnly 
+                        className="check" 
+                        checked={task.isComplete} 
+                        type="checkbox" 
+                        onClick={() => handleCompleteTask(task.id)}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                    <strong>{task.title}</strong>
+                    <ButtonDelete>
+                      <Trash onClick={() => handleDeleteTask(task.id)} size={24}  />
+                    </ButtonDelete>
+                  </ListTaskWithTasks>
+                )
+              })
+          ) : ''}
+          </ul>
+            {/* {tasks.length > 0 ? (
               tasks.map(task => {
                 return (
                   <ListTaskWithTasks key={task.id}>
-                    <input className="check" checked={task.isComplete} type="checkbox" onClick={() => handleCompleteTask(task.id)}/>
+                    <input readOnly className="check" checked={task.isComplete} type="checkbox" onClick={() => handleCompleteTask(task.id)}/>
+                    <span className="checkmark"></span>
                     <strong>{task.title}</strong>
                     <ButtonDelete>
                       <Trash onClick={() => handleDeleteTask(task.id)} size={24}  />
@@ -88,7 +116,7 @@ export function NewTask(){
                 </ListTask>
                   
             )
-          }
+          } */}
 
         </ContainerListTask>
     </ContainerTask>
