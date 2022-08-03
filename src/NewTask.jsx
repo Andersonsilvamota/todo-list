@@ -8,7 +8,7 @@ export function NewTask(){
   const [newTask, setNewTask] = useState('')
   const [tasks, setTasks] = useState([])
   const [count, setCount] = useState(0)
-  let quantityCompleted = 0
+  
   function handleAddNewTask(event){
     event.preventDefault()
     setNewTask(event.target.value)
@@ -62,11 +62,7 @@ export function NewTask(){
       </ContainerInput>
       <ContainerTask>
         <TaskInfo>
-        {tasks.forEach(task => {
-            if(task.isComplete === true){
-              quantityCompleted++
-            }
-          })}
+
           <strong 
             className="task-created"
           >
@@ -77,13 +73,13 @@ export function NewTask(){
             className="task-concluded"
           >
             Concluídas 
-            <div>{quantityCompleted} de {tasks.length}</div>
+            <div>{tasks.filter(task => task.isComplete === true).length} de {tasks.length}</div>
           </strong>
           
         </TaskInfo>
         <ContainerListTask>
           <ul>
-          {tasks.length > 0 ? (
+          {tasks.length ? (
             tasks.map(task => {
                 return (
                   <ListTaskWithTasks 

@@ -24,6 +24,11 @@ export const NewTaskInput = styled.input`
   border-radius: 8px;
   padding: 20px;
   color: var(--gray-200);
+
+  &:focus {
+    border: 2px solid var(--purple-dark);
+    outline: none;
+  }
 `
     
 export const Button = styled.button`
