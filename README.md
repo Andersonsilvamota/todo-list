@@ -9,27 +9,24 @@
 <img src=".github/todolist.PNG">
 
 
+### Funcionalidades:
+
+- Adicionar uma nova tarefa
+- Marcar e desmarcar uma tarefa como concluída
+- Remover uma tarefa da listagem
+- Mostrar o progresso de conclusão das tarefas
 
 
+## Para rodar o projeto na maquina local :
 
-
-
-
-
-
-
-
-
-##To run the project on your local machine:
-
-1 - Clone the project:
+1 - Clone o projeto:
   git clone https://github.com/Andersonsilvamota/todo-list.git
   
-2 - Access the folder:
+2 - Entre na pasta:
   cd todo-list
 
-3 - Install the dependencies:
+3 - Instale as depedências:
   npm i
   
-4- Start the project:
+4- Rode o projeto:
   npm run dev
